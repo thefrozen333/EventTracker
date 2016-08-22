@@ -213,6 +213,10 @@
     <Compile Include="Migrations\201608211130542_OverrideConventionsForEventsAndCategories.Designer.cs">
       <DependentUpon>201608211130542_OverrideConventionsForEventsAndCategories.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608222304317_PopulateCategoriesTable.cs" />
+    <Compile Include="Migrations\201608222304317_PopulateCategoriesTable.Designer.cs">
+      <DependentUpon>201608222304317_PopulateCategoriesTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -304,6 +308,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608211130542_OverrideConventionsForEventsAndCategories.resx">
       <DependentUpon>201608211130542_OverrideConventionsForEventsAndCategories.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608222304317_PopulateCategoriesTable.resx">
+      <DependentUpon>201608222304317_PopulateCategoriesTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
