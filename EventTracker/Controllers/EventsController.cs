@@ -34,7 +34,7 @@ namespace EventTracker.Controllers
             var anEvent = new Event
             {
                 HostId = User.Identity.GetUserId(),
-                DateTime = DateTime.Parse($"{viewModel.Date} {viewModel.Time}"),
+                DateTime = viewModel.DateTime,
                 CategoryId = viewModel.Category,
                 Venue = viewModel.Venue
             };

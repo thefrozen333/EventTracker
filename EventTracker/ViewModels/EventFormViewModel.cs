@@ -13,5 +13,11 @@ namespace EventTracker.ViewModels
         public string Time { get; set; }
         public byte Category { get; set; }
         public IEnumerable<Category> Categories{ get; set; }
+
+        public DateTime DateTime
+        {
+            get { return DateTime.Parse($"{Date} {Time}"); }
+            
+        }
     }
 }
