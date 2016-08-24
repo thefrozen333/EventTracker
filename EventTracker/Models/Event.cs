@@ -10,8 +10,10 @@ namespace EventTracker.Models
     {
         public int Id { get; set; }
 
-        [Required]
         public ApplicationUser Host { get; set; }
+
+        [Required]
+        public string HostId { get; set; }
 
         public DateTime DateTime { get; set; }
 
@@ -19,7 +21,9 @@ namespace EventTracker.Models
         [StringLength(255)]
         public string Venue { get; set; }
 
-        [Required]
         public Category Category { get; set; }
+
+        [Required]
+        public byte CategoryId { get; set; }
     }
 }

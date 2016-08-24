@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using EventTracker.Models;
 using EventTracker.ViewModels;
+using Microsoft.AspNet.Identity;
 
 namespace EventTracker.Controllers
 {
@@ -15,7 +16,8 @@ namespace EventTracker.Controllers
         {
             _context = new ApplicationDbContext();
         }
-        // GET: Events
+
+        [Authorize]
         public ActionResult Create()
         {
             var viewModel = new EventFormViewModel
@@ -23,6 +25,23 @@ namespace EventTracker.Controllers
                 Categories = _context.Categories.ToList()
             };
             return View(viewModel);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult Create(EventFormViewModel viewModel)
+        {
+            var anEvent = new Event
+            {
+                HostId = User.Identity.GetUserId(),
+                DateTime = DateTime.Parse($"{viewModel.Date} {viewModel.Time}"),
+                CategoryId = viewModel.Category,
+                Venue = viewModel.Venue
+            };
+
+            _context.Events.Add(anEvent);
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Home");
         }
     }
 }
