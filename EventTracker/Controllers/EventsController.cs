@@ -11,7 +11,7 @@ namespace EventTracker.Controllers
 {
     public class EventsController : Controller
     {
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
         public EventsController()
         {
             _context = new ApplicationDbContext();
@@ -31,10 +31,15 @@ namespace EventTracker.Controllers
         [HttpPost]
         public ActionResult Create(EventFormViewModel viewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                viewModel.Categories = _context.Categories.ToList();
+                return View("Create", viewModel);
+            }
             var anEvent = new Event
             {
                 HostId = User.Identity.GetUserId(),
-                DateTime = viewModel.DateTime,
+                DateTime = viewModel.GetDateTime(),
                 CategoryId = viewModel.Category,
                 Venue = viewModel.Venue
             };
