@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using EventTracker.Models;
+using EventTracker.ViewModels;
 
 namespace EventTracker.Controllers
 {

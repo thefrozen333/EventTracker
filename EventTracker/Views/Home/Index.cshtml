@@ -3,9 +3,26 @@
     ViewBag.Title = "Home Page";
 }
 
-<ul>
+<ul class="events">
     @foreach (var anEvent in Model)
     {
-        <li>@anEvent.DateTime - @anEvent.Venue -@anEvent.Host.Name</li>
+        <li>
+            <div class="date">
+                <div class="month">
+                    @anEvent.DateTime.ToString("MMM")
+                </div>
+                <div class="day">
+                    @anEvent.DateTime.ToString("d ")
+                </div>
+            </div>
+            <div class="details">
+                <span class="host">
+                  @anEvent.Host.Name
+                    </span>
+                <span class="category">
+                    @anEvent.Category.Name
+                </span>
+            </div>
+        </li>
     }
 </ul>
