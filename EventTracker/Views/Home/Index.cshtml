@@ -22,7 +22,29 @@
                 <span class="category">
                     @anEvent.Category.Name
                 </span>
+                <button  data-event-id="@anEvent.Id" class="btn btn-default btn-sm pull-right js-toggle-attendance">Going ?</button>
             </div>
         </li>
     }
 </ul>
+
+@section scripts
+{
+    <script>
+        $(function() {
+            $(".js-toggle-attendance").click(function (e) {
+                    var button = $(e.target);
+                    $.post("/api/attendances", { "": button.attr("data-event-id")})
+                        .done(function() {
+                            button
+                                .removeClass("btn-default")
+                                .addClass("btn-info")
+                                .text("Going");
+                        })
+                        .fail(function() {
+                            alert("Something failed!");
+                        });
+                });
+        });
+    </script>
+}
