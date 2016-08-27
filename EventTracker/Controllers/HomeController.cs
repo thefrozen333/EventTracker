@@ -1,16 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using EventTracker.Models;
 
 namespace EventTracker.Controllers
 {
     public class HomeController : Controller
     {
+        private ApplicationDbContext _context;
+
+        public HomeController()
+        {
+            _context = new ApplicationDbContext();
+        }
         public ActionResult Index()
         {
-            return View();
+            var upcomingEvents = _context.Events
+                                    .Include(e => e.Host)
+                                    .Where(e => e.DateTime > DateTime.Now);
+            return View(upcomingEvents);
         }
 
         public ActionResult About()

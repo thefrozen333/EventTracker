@@ -84,11 +84,11 @@ h6,
 
 .form-group {
     margin-bottom: 20px;
+    margin-top: 15px;
 }
-
 .form-control {
     font-size: 17px;
-    padding: 20px 15px;
+    padding: 5px 20px;
     -ms-border-radius: 9px;
     border-radius: 9px;
 }
@@ -105,4 +105,5 @@ h6,
     padding: 7px 20px;
     -ms-border-radius: 9px;
     border-radius: 9px;
+    margin: 6px 4px;
 }
