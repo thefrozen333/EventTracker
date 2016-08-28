@@ -3,12 +3,13 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 using EventTracker.Models;
+using EventTracker.ViewModels;
 
 namespace EventTracker.Controllers
 {
     public class HomeController : Controller
     {
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         public HomeController()
         {
@@ -20,21 +21,14 @@ namespace EventTracker.Controllers
                                     .Include(e => e.Host)
                                     .Include(e => e.Category)
                                     .Where(e => e.DateTime > DateTime.Now);
-            return View(upcomingEvents);
-        }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
+            var viewModel = new HomeViewModel
+            {
+                UpcomingEvents = upcomingEvents,
+                ShowActions = User.Identity.IsAuthenticated
+            };
 
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            return View(viewModel);
         }
     }
 }

@@ -10,29 +10,29 @@ using Microsoft.AspNet.Identity;
 namespace EventTracker.Controllers
 {
     [Authorize]
-    public class AttendancesController : ApiController
+    public class FollowingsController : ApiController
     {
-        private readonly ApplicationDbContext _context;
+        private ApplicationDbContext _context;
 
-        public AttendancesController()
+        public FollowingsController()
         {
             _context = new ApplicationDbContext();
         }
 
-        [HttpPost]
-        public IHttpActionResult Attend([FromBody] int eventId)
+        [HttpPost] public IHttpActionResult Follow ([FromBody]string followeeId)
+
         {
             var userId = User.Identity.GetUserId();
 
-            if (_context.Attendances.Any(a => a.AttendeeId == userId && a.EventId == eventId))
+            if (_context.Followings.Any(f => f.FollowerId == userId && f.FolloweeId == followeeId))
                 return BadRequest("Attendance already exists!");
 
-            var attendance = new Attendance
+            var following = new Following
             {
-                EventId = eventId,
-                AttendeeId = userId
+                FollowerId = userId,
+                FolloweeId = followeeId
             };
-            _context.Attendances.Add(attendance);
+            _context.Followings.Add(following);
             _context.SaveChanges();
 
             return Ok();
