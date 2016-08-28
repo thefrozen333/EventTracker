@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -15,6 +16,26 @@ namespace EventTracker.Controllers
         public EventsController()
         {
             _context = new ApplicationDbContext();
+        }
+
+        [Authorize]
+        public ActionResult Attending()
+        {
+            var userId = User.Identity.GetUserId();
+            var events = _context.Attendances
+                .Where(a => a.AttendeeId == userId)
+                .Select(a => a.Event)
+                .Include(e => e.Host)
+                .Include(e => e.Category)
+                .ToList();
+
+            var viewModel = new EventsViewModel()
+            {
+                UpcomingEvents = events,
+                ShowActions = User.Identity.IsAuthenticated,
+                Heading = "Events I am attending"
+            };
+            return View("Events", viewModel);
         }
 
         [Authorize]

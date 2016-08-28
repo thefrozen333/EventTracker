@@ -1,9 +1,11 @@
-﻿@model EventTracker.ViewModels.HomeViewModel
+﻿@model EventTracker.ViewModels.EventsViewModel
 @{
     ViewBag.Title = "Home Page";
 }
 
-<ul class="events">
+<h1>@Model.Heading</h1>
+
+<ul class="events voffset5">
     @foreach (var anEvent in Model.UpcomingEvents)
     {
         <li>

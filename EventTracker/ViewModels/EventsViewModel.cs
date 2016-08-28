@@ -4,9 +4,10 @@ using EventTracker.Models;
 
 namespace EventTracker.ViewModels
 {
-    public class HomeViewModel
+    public class EventsViewModel
     {
-        public IQueryable<Event> UpcomingEvents { get; set; }
+        public IEnumerable<Event> UpcomingEvents { get; set; }
         public bool ShowActions { get; set; }
+        public string Heading { get; set; }
     }
 }
