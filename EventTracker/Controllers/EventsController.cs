@@ -19,6 +19,18 @@ namespace EventTracker.Controllers
         }
 
         [Authorize]
+        public ActionResult Mine()
+        {
+            var userId = User.Identity.GetUserId();
+            var events = _context.Events
+                .Where(e => e.HostId == userId && e.DateTime > DateTime.Now)
+                .Include(e => e.Category)
+                .ToList();
+
+            return View(events);
+        }
+
+        [Authorize]
         public ActionResult Attending()
         {
             var userId = User.Identity.GetUserId();
@@ -35,6 +47,7 @@ namespace EventTracker.Controllers
                 ShowActions = User.Identity.IsAuthenticated,
                 Heading = "Events I am attending"
             };
+
             return View("Events", viewModel);
         }
 
@@ -68,7 +81,7 @@ namespace EventTracker.Controllers
 
             _context.Events.Add(anEvent);
             _context.SaveChanges();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Mine", "Events");
         }
     }
 }
