@@ -100,7 +100,7 @@ h6,
 }
 .form-control {
     font-size: 17px;
-    padding: 6px 20px;
+    height: 44px;
     -ms-border-radius: 9px;
     border-radius: 9px;
 }
@@ -166,4 +166,13 @@ h6,
 
 .events > li .details .category {
     font-size: 15px;
+}
+
+.events > li .actions {
+    font-size: 16px;
+    display: none;
+}
+
+.events > li:hover .actions {
+    display: block;
 }

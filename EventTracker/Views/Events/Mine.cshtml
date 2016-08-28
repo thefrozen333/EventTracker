@@ -24,6 +24,10 @@
                 <span class="category">
                     @anEvent.Category.Name
                 </span>
+                <div class="actions">
+                    <a href="@Url.Action("Edit","Events", new {id = anEvent.Id})">Edit</a>
+                    <a href="#">Delete</a>
+                </div>
             </div>
         </li>
     }
