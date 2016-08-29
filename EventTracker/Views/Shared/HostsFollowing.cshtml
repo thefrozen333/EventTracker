@@ -1,0 +1,16 @@
+﻿@model EventTracker.ViewModels.HostsFollowingViewModel
+@{
+    ViewBag.Title = "HostsFollowing";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Hosts Following</h2>
+<ul class="hosts-following voffset4">
+    @foreach (var followee in Model.HostsFollowing)
+    {
+        <li>
+            @followee.Name
+            <br/>
+        </li>
+    }
+</ul>

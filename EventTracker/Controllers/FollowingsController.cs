@@ -22,34 +22,7 @@ namespace EventTracker.Controllers
             _context = new ApplicationDbContext();
         }
 
-        //[System.Web.Mvc.Authorize]
-        //public ActionResult Following()
-        //{
-        //    var userId = User.Identity.GetUserId();
-        //    var folowees = _context.Followings
-        //        .Where(a => a.FolloweeId == userId)
-        //        .Select(a => a.Followee)
-        //        .ToList();
-
-        //    var hostsFollowing = new List<Event>();
-
-        //    foreach (var host in folowees)
-        //    {
-        //        hostsFollowing.AddRange(_context.Events
-        //            .Where(e => e.HostId == host.Id)
-        //            .Include(e => e.Host)
-        //            .Include(e => e.Category));
-        //    }
-
-        //    var viewModel = new EventsViewModel()
-        //    {
-        //        UpcomingEvents = hostsFollowing,
-        //        ShowActions = User.Identity.IsAuthenticated,
-        //        Heading = "Hosts I am following"
-        //    };
-
-        //    return View("Events", viewModel);
-        //}
+        
 
         [System.Web.Mvc.HttpPost] public IHttpActionResult Follow ([FromBody]string followeeId)
 

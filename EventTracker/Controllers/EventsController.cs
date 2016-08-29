@@ -52,6 +52,25 @@ namespace EventTracker.Controllers
         }
 
         [Authorize]
+        public ActionResult Following()
+        {
+            var userId = User.Identity.GetUserId();
+            var folowees = _context.Followings
+                .Where(a => a.FollowerId == userId)
+                .Select(a => a.Followee)
+                .ToList();
+
+            var viewModel = new HostsFollowingViewModel()
+            {
+                HostsFollowing = folowees,
+                ShowActions = User.Identity.IsAuthenticated,
+                Heading = "Hosts I am following"
+            };
+
+            return View("HostsFollowing", viewModel);
+        }
+
+        [Authorize]
         public ActionResult Create()
         {
             var viewModel = new EventFormViewModel

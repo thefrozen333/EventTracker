@@ -137,6 +137,7 @@ h6,
     width: 60px;
     -ms-border-radius: 8px;
     border-radius: 8px;
+    margin: -15px;
 }
 
 .events > li .date .month {

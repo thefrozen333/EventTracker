@@ -15,11 +15,12 @@
                 </div>
                 <div class="day">
                     @anEvent.DateTime.ToString("d ")
+                    @anEvent.DateTime.ToString("yyyy ")
                 </div>
             </div>
             <div class="details">
                 <span class="host">
-                    @anEvent.Host.Name
+                    @anEvent.Venue
                     @if (Model.ShowActions)
                     {
                         <button class="btn btn-link btn-sm js-toggle-follow" data-user-id="@anEvent.HostId">Follow</button>

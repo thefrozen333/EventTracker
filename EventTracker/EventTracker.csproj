@@ -249,6 +249,10 @@
     <Compile Include="Migrations\201608272258487_AddFollowing.Designer.cs">
       <DependentUpon>201608272258487_AddFollowing.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608291048224_AddIsCanceledToEvent.cs" />
+    <Compile Include="Migrations\201608291048224_AddIsCanceledToEvent.Designer.cs">
+      <DependentUpon>201608291048224_AddIsCanceledToEvent.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\Attendance.cs" />
@@ -265,6 +269,7 @@
     <Compile Include="ViewModels\ForgotViewModel.cs" />
     <Compile Include="ViewModels\FutureDate.cs" />
     <Compile Include="ViewModels\EventsViewModel.cs" />
+    <Compile Include="ViewModels\HostsFollowingViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="ViewModels\RegisterViewModel.cs" />
@@ -333,6 +338,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Events\EventForm.cshtml" />
     <Content Include="Views\Events\Mine.cshtml" />
+    <Content Include="Views\Shared\HostsFollowing.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -370,6 +376,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608272258487_AddFollowing.resx">
       <DependentUpon>201608272258487_AddFollowing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608291048224_AddIsCanceledToEvent.resx">
+      <DependentUpon>201608291048224_AddIsCanceledToEvent.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -10,6 +10,8 @@ namespace EventTracker.Models
     {
         public int Id { get; set; }
 
+        public bool IsCanceled { get; set; }
+
         public ApplicationUser Host { get; set; }
 
         [Required]
