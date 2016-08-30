@@ -4,11 +4,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Hosts Following</h2>
-<ul class="hosts-following voffset4">
+<h2 class="list-group-item-heading">Hosts Following</h2>
+<ul class="hosts-following list-group voffset5">
     @foreach (var followee in Model.HostsFollowing)
     {
-        <li>
+        <li class="list-group-item">
             @followee.Name
             <br/>
         </li>

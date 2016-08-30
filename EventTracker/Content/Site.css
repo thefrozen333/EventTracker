@@ -8,6 +8,9 @@
     padding-left: 15px;
     padding-right: 15px;
 }
+body {
+    background-color: #F0EAD6;
+}
 
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
@@ -120,6 +123,15 @@ h6,
     margin: 6px 4px;
 }
 
+.hosts-following > li {
+    width: 200px;
+    list-style: none;
+    background: #BCB88A;
+    border-radius: 7px;
+    margin: 5px;
+    color: #7B3F00;
+}
+
 /*Page-specific styles*/
 .events {
     list-style: none;
@@ -145,6 +157,7 @@ h6,
     font-size: 14px;
     font-weight: bold;
     padding: 2px 6px;
+    margin: 5px;
 }
 
 .events > li .date .day {
@@ -152,6 +165,7 @@ h6,
     color: #333;
     font-size: 20px;
     padding: 6px 12px;
+    margin: -5px;
 }
 
 .events > li .details {
