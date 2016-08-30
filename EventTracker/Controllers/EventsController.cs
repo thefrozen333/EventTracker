@@ -23,7 +23,9 @@ namespace EventTracker.Controllers
         {
             var userId = User.Identity.GetUserId();
             var events = _context.Events
-                .Where(e => e.HostId == userId && e.DateTime > DateTime.Now)
+                .Where(e => e.HostId == userId && 
+                e.DateTime > DateTime.Now && 
+                 !e.IsCanceled)
                 .Include(e => e.Category)
                 .ToList();
 

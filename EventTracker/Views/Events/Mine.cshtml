@@ -7,7 +7,7 @@
 <h2>My upcoming events</h2>
 <ul class="events voffset5">
     @foreach (var anEvent in Model)
-    {
+    {   
         <li>
             <div class="date">
                 <div class="month">
@@ -27,9 +27,56 @@
                 </span>
                 <div class="actions">
                     <a href="@Url.Action("Edit","Events", new {id = anEvent.Id})">Edit</a>
-                    <a href="#">Delete</a>
+                    <a href="#" class="js-cancel-event" data-event-id="@anEvent.Id">
+                        Cancel
+                    </a>
                 </div>
             </div>
         </li>
     }
 </ul>
+
+@section scripts
+{
+    <script>
+        $(function() {
+            $(".js-cancel-event")
+                .click(function(e) {
+                    var link = $(e.target);
+
+                    bootbox.dialog({
+                        message: "Are you sure you want to cancel this event?",
+                        title: "Confirm",
+                        buttons: {
+                            no: {
+                                label: "No",
+                                className: "btn-default",
+                                callback: function() {
+                                    bootbox.hideAll();
+                                }
+                            },
+                            yes: {
+                                label: "Yes",
+                                className: "btn-danger",
+                                callback: function() {
+                                    $.ajax({
+                                            url: "/api/events/" + link.attr("data-event-id"),
+                                            method: "DELETE"
+                                        })
+                                        .done(function() {
+                                            link.parents("li")
+                                                .fadeOut(function() {
+                                                    $(this).remove();
+                                                });
+                                        })
+                                        .fail(function() {
+                                            alert("something failed");
+                                        });
+                                }
+                            }
+                        }
+                    });
+                });
+        });
+    </script>
+}

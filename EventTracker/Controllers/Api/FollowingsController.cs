@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using System.Web.Http;
-using System.Web.Mvc;
-using System.Web.UI.WebControls;
 using EventTracker.Models;
-using EventTracker.ViewModels;
 using Microsoft.AspNet.Identity;
 
-namespace EventTracker.Controllers
+namespace EventTracker.Controllers.Api
 {
     [System.Web.Mvc.Authorize]
     public class FollowingsController : ApiController

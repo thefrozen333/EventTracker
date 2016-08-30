@@ -4,7 +4,7 @@
 }
 
 <h1>@Model.Heading</h1>
-
+@using (Html.BeginForm)
 <ul class="events voffset5">
     @foreach (var anEvent in Model.UpcomingEvents)
     {
@@ -21,6 +21,12 @@
             <div class="details">
                 <span class="host">
                     @anEvent.Venue
+                    
+                    @if (anEvent.IsCanceled)
+                    {
+                        <span class="label label-warning">Canceled</span>
+                    }
+
                     @if (Model.ShowActions)
                     {
                         <button class="btn btn-link btn-sm js-toggle-follow" data-user-id="@anEvent.HostId">Follow</button>
@@ -29,7 +35,7 @@
                 <span class="category">
                     @anEvent.Category.Name
                 </span>
-                @if (Model.ShowActions)
+                @if (Model.ShowActions && !anEvent.IsCanceled)
                 {
                     <button data-event-id="@anEvent.Id" class="btn btn-default btn-sm pull-right js-toggle-attendance">Going ?</button>
                 }
