@@ -191,3 +191,7 @@ h6,
 .events > li:hover .actions {
     display: block;
 }
+
+#searchEvents {
+    width: 300px;
+}

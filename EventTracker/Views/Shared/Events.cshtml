@@ -4,46 +4,56 @@
 }
 
 <h1>@Model.Heading</h1>
-@using (Html.BeginForm)
-<ul class="events voffset5">
-    @foreach (var anEvent in Model.UpcomingEvents)
-    {
-        <li>
-            <div class="date">
-                <div class="month">
-                    @anEvent.DateTime.ToString("MMM")
-                </div>
-                <div class="day">
-                    @anEvent.DateTime.ToString("d ")
-                    @anEvent.DateTime.ToString("yyyy ")
-                </div>
-            </div>
-            <div class="details">
-                <span class="host">
-                    @anEvent.Venue
-                    
-                    @if (anEvent.IsCanceled)
-                    {
-                        <span class="label label-warning">Canceled</span>
-                    }
+@using (Html.BeginForm("Search", "Events"))
+{
+    <div class="form-group">
+        <div id="searchEvents" class="input-group">
+            @Html.TextBoxFor(m => m.SearchTerm, new {@class = "form-control", placeholder = "Search by host, category ..." })
+            <span class="input-group-addon">
+                <i class="glyphicon glyphicon-search"></i>
+            </span>
+        </div>
+    </div>
+}
 
-                    @if (Model.ShowActions)
-                    {
-                        <button class="btn btn-link btn-sm js-toggle-follow" data-user-id="@anEvent.HostId">Follow</button>
-                    }
-                </span>
-                <span class="category">
-                    @anEvent.Category.Name
-                </span>
-                @if (Model.ShowActions && !anEvent.IsCanceled)
+    <ul class="events voffset5">
+        @foreach (var anEvent in Model.UpcomingEvents)
+        {
+            <li>
+                <div class="date">
+                    <div class="month">
+                        @anEvent.DateTime.ToString("MMM")
+                    </div>
+                    <div class="day">
+                        @anEvent.DateTime.ToString("d ")
+                        @anEvent.DateTime.ToString("yyyy ")
+                    </div>
+                </div>
+                <div class="details">
+                    <span class="host">
+                        @anEvent.Venue
+
+                        @if (anEvent.IsCanceled)
+                        {
+                            <span class="label label-warning">Canceled</span>
+                        }
+
+                        @if (Model.ShowActions)
+                        {
+                            <button class="btn btn-link btn-sm js-toggle-follow" data-user-id="@anEvent.HostId">Follow</button>
+                        }
+                    </span>
+                    <span class="category">
+                        @anEvent.Category.Name
+                    </span>
+                    @if (Model.ShowActions && !anEvent.IsCanceled)
                 {
-                    <button data-event-id="@anEvent.Id" class="btn btn-default btn-sm pull-right js-toggle-attendance">Going ?</button>
-                }
-            </div>
-        </li>
-    }
-</ul>
-
+                        <button data-event-id="@anEvent.Id" class="btn btn-default btn-sm pull-right js-toggle-attendance">Going ?</button>
+                    }
+                </div>
+            </li>
+        }
+    </ul>
 @section scripts
 {
     <script>
