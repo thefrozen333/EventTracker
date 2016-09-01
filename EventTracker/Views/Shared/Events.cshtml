@@ -17,73 +17,97 @@
 }
 
     <ul class="events voffset5">
-        @foreach (var anEvent in Model.UpcomingEvents)
-        {
-            <li>
-                <div class="date">
-                    <div class="month">
-                        @anEvent.DateTime.ToString("MMM")
-                    </div>
-                    <div class="day">
-                        @anEvent.DateTime.ToString("d ")
-                        @anEvent.DateTime.ToString("yyyy ")
-                    </div>
+    @foreach (var anEvent in Model.UpcomingEvents)
+    {
+        <li>
+            <div class="date">
+                <div class="month">
+                    @anEvent.DateTime.ToString("MMM")
                 </div>
-                <div class="details">
-                    <span class="host">
+                <div class="day">
+                    @anEvent.DateTime.ToString("d ")
+                    @anEvent.DateTime.ToString("yyyy ")
+                </div>
+            </div>
+            <div class="details">
+                <span class="host">
+                    <a href="@Url.Action("Details", "Events", new {id = anEvent.Id})">
                         @anEvent.Venue
+                    </a>
 
-                        @if (anEvent.IsCanceled)
-                        {
-                            <span class="label label-warning">Canceled</span>
-                        }
-
-                        @if (Model.ShowActions)
-                        {
-                            <button class="btn btn-link btn-sm js-toggle-follow" data-user-id="@anEvent.HostId">Follow</button>
-                        }
-                    </span>
-                    <span class="category">
-                        @anEvent.Category.Name
-                    </span>
-                    @if (Model.ShowActions && !anEvent.IsCanceled)
-                {
-                        <button data-event-id="@anEvent.Id" class="btn btn-default btn-sm pull-right js-toggle-attendance">Going ?</button>
+                    @if (anEvent.IsCanceled)
+                    {
+                        <span class="label label-warning">Canceled</span>
                     }
-                </div>
-            </li>
-        }
-    </ul>
+
+                    @if (Model.ShowActions)
+                    {
+                        <button class="btn btn-link btn-sm js-toggle-follow" data-user-id="@anEvent.HostId">Follow</button>
+                    }
+                </span>
+                <span class="category">
+                    @anEvent.Category.Name
+                </span>
+                @if (Model.ShowActions && !anEvent.IsCanceled)
+                {
+                    <button
+                        data-event-id="@anEvent.Id"
+                        class="btn
+                             @(Model.Attendances.Contains(anEvent.Id) ? "btn-info" : "btn-default") 
+                             btn-sm pull-right js-toggle-attendance">Going ?</button>
+                }
+            </div>
+        </li>
+    }
+</ul>
+
 @section scripts
 {
     <script>
         $(function() {
-            $(".js-toggle-attendance").click(function (e) {
+            $(".js-toggle-attendance")
+                .click(function(e) {
                     var button = $(e.target);
-                    $.post("/api/attendances", { "": button.attr("data-event-id")})
+                    if (button.hasClass("btn-default")) {
+                        $.post("/api/attendances", { "": button.attr("data-event-id") })
+                            .done(function() {
+                                button
+                                    .removeClass("btn-default")
+                                    .addClass("btn-info")
+                                    .text("Going");
+                            })
+                            .fail(function() {
+                                alert("Something failed!");
+                            });
+
+                    } else {
+                        $.ajax({
+                                url: "/api/attendances/" + button.attr("data-event-id"),
+                                method: "DELETE"
+                            })
+                            .done(function() {
+                                button.removeClass("btn-info")
+                                    .addClass("btn-default")
+                                    .text("Going?");
+                            })
+                            .fail(function() {
+                                alert("Something failed!");
+                            });
+                    }
+                });
+        });
+        $(function() {
+            $(".js-toggle-follow")
+                .click(function(e) {
+                    var button = $(e.target);
+                    $.post("/api/followings", { "": button.attr("data-user-id") })
                         .done(function() {
-                            button
-                                .removeClass("btn-default")
-                                .addClass("btn-info")
-                                .text("Going");
+                            button.text("Following");
                         })
                         .fail(function() {
                             alert("Something failed!");
                         });
                 });
-        });
-
-        $(function () {
-            $(".js-toggle-follow").click(function (e) {
-                var button = $(e.target);
-                $.post("/api/followings", { "": button.attr("data-user-id") })
-                    .done(function () {
-                        button.text("Following");
-                    })
-                    .fail(function () {
-                        alert("Something failed!");
-                    });
-            });
         });
     </script>
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using EventTracker.Models;
 using EventTracker.ViewModels;
+using Microsoft.AspNet.Identity;
 
 namespace EventTracker.Controllers
 {
@@ -31,12 +32,19 @@ namespace EventTracker.Controllers
                         e.Venue.Contains(query));
             }
 
+            var userId = User.Identity.GetUserId();
+            var attendances = _context.Attendances
+                .Where(a => a.AttendeeId == userId && a.Event.DateTime > DateTime.Now)
+                .ToList()
+                .ToLookup(a => a.EventId);
+
             var viewModel = new EventsViewModel
             {
                 UpcomingEvents = upcomingEvents,
                 ShowActions = User.Identity.IsAuthenticated,
                 Heading = "Upcoming Events",
-                SearchTerm = query
+                SearchTerm = query,
+                Attendances = attendances
             };
 
             return View("Events", viewModel);

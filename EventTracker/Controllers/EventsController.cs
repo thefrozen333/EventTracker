@@ -43,11 +43,17 @@ namespace EventTracker.Controllers
                 .Include(e => e.Category)
                 .ToList();
 
+            var attendances = _context.Attendances
+                .Where(a => a.AttendeeId == userId && a.Event.DateTime > DateTime.Now)
+                .ToList()
+                .ToLookup(a => a.EventId);
+
             var viewModel = new EventsViewModel()
             {
                 UpcomingEvents = events,
                 ShowActions = User.Identity.IsAuthenticated,
-                Heading = "Events I am attending"
+                Heading = "Events I am attending",
+                Attendances = attendances
             };
 
             return View("Events", viewModel);
@@ -70,6 +76,36 @@ namespace EventTracker.Controllers
             };
 
             return View("HostsFollowing", viewModel);
+        }
+
+        public ActionResult Details(int id)
+        {
+            var anEvent = _context.Events
+                            .Include(e => e.Host)
+                            .Include(e => e.Category)
+                            .SingleOrDefault(e => e.Id == id);
+
+            if (anEvent == null)
+                return HttpNotFound();
+
+            var viewModel = new EventDetailsViewModel()
+            {
+                Event = anEvent
+            };
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Identity.GetUserId();
+
+                viewModel.IsAttending = _context.Attendances
+                    .Any(a => a.EventId == anEvent.Id && a.AttendeeId == userId);
+
+                viewModel.IsFollowing =
+                    _context.Followings
+                    .Any(f => f.FolloweeId == anEvent.HostId && f.FollowerId == userId);
+            }
+
+            return View("Details", viewModel);
         }
 
         [HttpPost]
