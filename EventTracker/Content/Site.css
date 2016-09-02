@@ -10,6 +10,12 @@
 }
 body {
     background-color: #F0EAD6;
+    background-image: url('rsz_1party-in-barcelona.jpg');
+    background-repeat: no-repeat;
+    background-size: 950% 950%;
+}
+html {
+    height: 100%
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -95,6 +101,7 @@ h6,
   font-family: Lato,"Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 500;
   line-height: 1.1;
+    color: white;
 }
 
 .form-group {
@@ -194,4 +201,8 @@ h6,
 
 #searchEvents {
     width: 300px;
+}
+
+div.bootbox-body, h4.modal-title {
+    color: black;
 }
